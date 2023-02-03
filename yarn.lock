@@ -193,6 +193,11 @@
     "json-schema-traverse" "^0.4.1"
     "uri-js" "^4.2.2"
 
+"an-array-of-english-words@^2.0.0":
+  "integrity" "sha512-FXnNvZSOI27kkKXeLSquhaTGP7z198UOQ4txaYO9fCfrjCh+D5SV7G7XqzEH0229+pAi4cjBEZ4WIQYgjKtO7Q=="
+  "resolved" "https://registry.npmjs.org/an-array-of-english-words/-/an-array-of-english-words-2.0.0.tgz"
+  "version" "2.0.0"
+
 "ansi-regex@^5.0.1":
   "integrity" "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="
   "resolved" "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz"

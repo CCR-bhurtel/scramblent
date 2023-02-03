@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Unscrambler from '../../Utils/unscrambler';
 import Search from '../Search';
 import Filter from '../Search/Filter';
 
@@ -27,7 +28,7 @@ function HeroSection() {
     const onOptionChangeHandler = (e) => {
         if (e.target.name == 'length') {
             setOptions({ ...options, [e.target.name]: e.target.value });
-        } else setOptions({ ...options, [e.target.name]: removeSpecialCharacter(e.target.value) });
+        } else setOptions({ ...options, [e.target.name]: removeSpecialCharacter(e.target.value.toUpperCase()) });
     };
 
     const onSearchClear = () => {
@@ -35,12 +36,27 @@ function HeroSection() {
     };
 
     const onChangeHandler = (e) => {
-        setCharacters(removeSpecialCharacter(e.target.value.split(',').join('')));
+        setCharacters(removeSpecialCharacter(e.target.value.split(',').join('').toUpperCase()));
     };
     const onOptionClear = (name) => {
         setOptions({ ...options, [name]: '' });
     };
 
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        const unscrambler = new Unscrambler(
+            characters,
+            options.length,
+            options.contains,
+            options.endsWith,
+            options.startsWith
+        );
+        (async () => {
+            await unscrambler.filterWords();
+
+            const filteredWords = unscrambler.words;
+        })();
+    };
     return (
         <section className="h-[90vh] flex items-center justify-center flex-col">
             <div className="textPart font-medium text-[2rem] md:text-[2.5rem] font-Poppins text-center leading-tight">
@@ -48,7 +64,12 @@ function HeroSection() {
                 <p className="text-white leading-tight">Make words with scrambled letters</p>
             </div>
             <div className="searchPart flex flex-col">
-                <Search onClear={onSearchClear} onChange={onChangeHandler} characters={characters} />
+                <Search
+                    onClear={onSearchClear}
+                    onChange={onChangeHandler}
+                    characters={characters}
+                    onSubmit={onSubmitHandler}
+                />
                 <Filter options={options} onChange={onOptionChangeHandler} onOptionClear={onOptionClear} />
             </div>
         </section>

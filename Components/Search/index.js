@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import search from '../../assets/Icons/search.png';
 import Clear from '../IconComponents/Clear';
 
-function Search({ onChange, characters, onClear }) {
+function Search({ onChange, characters, onClear, onSubmit }) {
     const display = characters.length;
     return (
-        <form className="searchBar flex  justify-center h-[4rem] mt-[2rem] relative w-100 usm:min-w-[370px] md:min-w-[550px]">
+        <form
+            onSubmit={onSubmit}
+            className="searchBar flex  justify-center h-[4rem] mt-[2rem] relative w-100 usm:min-w-[370px] md:min-w-[550px]"
+        >
             <button
                 type="submit"
                 className="button  rounded-tl-md rounded-bl-md bg-Cerulean h-100 flex items-center justify-center px-4 md:px-[1.5rem]"
