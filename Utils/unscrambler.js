@@ -8,6 +8,7 @@ class Unscrambler {
     contains = null;
     endsWith = null;
     startsWith = null;
+    finalResult = {};
     constructor(characters, length, contains, endsWith, startsWith) {
         this.characters = characters;
         this.length = parseInt(length);
@@ -85,6 +86,16 @@ class Unscrambler {
         });
     }
 
+    getFinalResults() {
+        const maxLength = this.characters.length;
+        let i = maxLength;
+        const _finalResult = {};
+        while (i > 0) {
+            _finalResult[`${i}`] = this.words.filter((word) => word.length == i);
+            i--;
+        }
+        this.finalResult = _finalResult;
+    }
     async filterWords() {
         await this.getInitialWords();
 
@@ -100,7 +111,8 @@ class Unscrambler {
 
         const wordsWithStarting = await this.filterStartsWith();
         this.words = wordsWithStarting;
-        console.log(this.words);
+        this.getFinalResults();
+        console.log(this.finalResult);
     }
 }
 
