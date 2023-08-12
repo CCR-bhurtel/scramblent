@@ -53,20 +53,31 @@ function HeroSection({ charactersFromRouter, startsWith, endsWith, length, conta
 
     const onSubmitHandler = (e) => {
         if (characters.length)
-            router.push({
-                pathname: '/result',
-                query: {
-                    characters,
-                    length: options.length || '',
-                    contains: options.contains || '',
-                    endsWith: options.endsWith || '',
-                    startsWith: options.startsWith || '',
+            router.push(
+                {
+                    pathname: '/result',
+                    query: {
+                        characters,
+                        length: options.length || '',
+                        contains: options.contains || '',
+                        endsWith: options.endsWith || '',
+                        startsWith: options.startsWith || '',
+                    },
                 },
-            });
+                null,
+                { shallow: false }
+            );
         e.preventDefault();
     };
+
+    const classNames = [
+        `${!charactersFromRouter ? 'h-[90vh]' : 'h-[60vh]'}`,
+        'flex items-center',
+        'justify-center',
+        'flex-col',
+    ].join(' ');
     return (
-        <section className="h-[90vh] flex items-center justify-center flex-col">
+        <section className={classNames}>
             <div className="textPart font-medium text-[2rem] md:text-[2.5rem] font-Poppins text-center leading-tight">
                 <p className="text-Cerulean">Scramblen't</p>
                 <p className="text-white leading-tight">Make words with scrambled letters</p>
