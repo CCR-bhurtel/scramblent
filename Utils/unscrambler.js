@@ -1,4 +1,4 @@
-import * as dict from 'an-array-of-english-words';
+import dict from './words.json';
 
 class Unscrambler {
     words = [];

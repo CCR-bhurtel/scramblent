@@ -71,7 +71,7 @@ function HeroSection({ charactersFromRouter, startsWith, endsWith, length, conta
     };
 
     const classNames = [
-        `${!charactersFromRouter ? 'h-[90vh]' : 'h-[60vh]'}`,
+        `${!charactersFromRouter ? 'h-[90vh]' : 'h-[75vh]'}`,
         'flex items-center',
         'justify-center',
         'flex-col',

@@ -8,7 +8,7 @@ const WordsSectionContainer = React.forwardRef((props, ref) => {
     const { characters } = router.query;
 
     return (
-        <div className='mt-[2rem] md:mt-[1rem]'>
+        <div className='mt-[3rem] md:mt-[1rem] pb-[2rem]'>
             <div className="text-[1.3rem]">
                 <span className="text-white">Result for: &nbsp;</span>
                 <span className='text-Cerulean'>{characters}</span>
