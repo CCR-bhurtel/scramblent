@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import Unscrambler from '../../Utils/unscrambler';
 import Search from '../Search';
 import Filter from '../Search/Filter';
+import { useRouter } from 'next/router';
 
-function HeroSection() {
-    const [characters, setCharacters] = useState('');
+function HeroSection({ charactersFromRouter, startsWith, endsWith, length, contains }) {
+    const [characters, setCharacters] = useState(charactersFromRouter || '');
     const [options, setOptions] = useState({
-        startsWith: '',
-        endsWith: '',
-        length: '',
-        contains: '',
+        startsWith: startsWith || '',
+        endsWith: endsWith || '',
+        length: length || '',
+        contains: contains || '',
     });
+    const router = useRouter();
+
     function removeSpecialCharacter(s) {
         for (let i = 0; i < s.length; i++) {
             // Finding the character whose
@@ -28,7 +30,14 @@ function HeroSection() {
     const onOptionChangeHandler = (e) => {
         if (e.target.name == 'length') {
             setOptions({ ...options, [e.target.name]: e.target.value });
-        } else setOptions({ ...options, [e.target.name]: removeSpecialCharacter(e.target.value.toUpperCase()) });
+        } else {
+            const splittedLetters = e.target.value.split('');
+
+            const lastLetter = splittedLetters[splittedLetters.length - 1];
+
+            if (!lastLetter || characters.includes(lastLetter.toUpperCase()))
+                setOptions({ ...options, [e.target.name]: removeSpecialCharacter(e.target.value.toUpperCase()) });
+        }
     };
 
     const onSearchClear = () => {
@@ -43,19 +52,18 @@ function HeroSection() {
     };
 
     const onSubmitHandler = (e) => {
+        if (characters.length)
+            router.push({
+                pathname: '/result',
+                query: {
+                    characters,
+                    length: options.length || '',
+                    contains: options.contains || '',
+                    endsWith: options.endsWith || '',
+                    startsWith: options.startsWith || '',
+                },
+            });
         e.preventDefault();
-        const unscrambler = new Unscrambler(
-            characters,
-            options.length,
-            options.contains,
-            options.endsWith,
-            options.startsWith
-        );
-        (async () => {
-            await unscrambler.filterWords();
-
-            const filteredWords = unscrambler.words;
-        })();
     };
     return (
         <section className="h-[90vh] flex items-center justify-center flex-col">

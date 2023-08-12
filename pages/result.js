@@ -1,9 +1,14 @@
-import { useRouter } from 'next/router';
-import React from 'react';
+import React, { Suspense } from 'react';
 
+import dynamic from 'next/dynamic';
+
+const ResultContainer = dynamic(() => import('../Components/Result'), { ssr: false });
 function Result() {
-    const router = useRouter();
-    return <div>Result</div>;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ResultContainer />
+        </Suspense>
+    );
 }
 
 export default Result;

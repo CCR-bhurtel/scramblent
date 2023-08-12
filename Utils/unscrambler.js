@@ -9,7 +9,7 @@ class Unscrambler {
     endsWith = null;
     startsWith = null;
     finalResult = {};
-    constructor(characters, length, contains, endsWith, startsWith) {
+    constructor(characters, length, contains = '', endsWith = '', startsWith = '') {
         this.characters = characters;
         this.length = parseInt(length);
         this.contains = contains.toLowerCase();
@@ -71,10 +71,6 @@ class Unscrambler {
                 for (let key in reoccurence2) {
                     if (reoccurence2[key] <= reoccurence1[key]) match++;
                 }
-                if (word == 'hello') {
-                    console.log('reoccurence of given word', reoccurence1);
-                    console.log('reoccurence of generated word', reoccurence2);
-                }
 
                 if (Object.keys(reoccurence2).length == match) {
                     words.push(word);
@@ -112,7 +108,6 @@ class Unscrambler {
         const wordsWithStarting = await this.filterStartsWith();
         this.words = wordsWithStarting;
         this.getFinalResults();
-        console.log(this.finalResult);
     }
 }
 
